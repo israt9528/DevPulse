@@ -5,3 +5,15 @@ Method -> GET - Time -> [5/22/2026, 12:18:51 AM] - URL -> /
 Method -> GET - Time -> [5/22/2026, 1:22:09 AM] - URL -> /
 
 Method -> GET - Time -> [5/22/2026, 1:22:49 AM] - URL -> /
+
+Method -> GET - Time -> [5/22/2026, 2:33:10 AM] - URL -> /api/auth/signup
+
+Method -> GET - Time -> [5/22/2026, 2:35:55 AM] - URL -> /api/auth/signup
+
+Method -> POST - Time -> [5/22/2026, 2:39:32 AM] - URL -> /api/auth/signup
+
+Method -> POST - Time -> [5/22/2026, 2:41:49 AM] - URL -> /api/auth/signup
+
+Method -> POST - Time -> [5/22/2026, 2:58:54 AM] - URL -> /api/auth/signup
+
+Method -> POST - Time -> [5/22/2026, 3:00:43 AM] - URL -> /api/auth/signup
