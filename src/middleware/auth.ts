@@ -11,7 +11,7 @@ export const auth = (...roles: Role[]) => {
       const token = req.headers.authorization;
 
       if (!token) {
-        sendResponse(res, {
+        return sendResponse(res, {
           statusCode: 404,
           success: false,
           message: "Token is missing",

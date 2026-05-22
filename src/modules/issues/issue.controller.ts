@@ -2,16 +2,10 @@ import type { Request, Response } from "express";
 import { issueService } from "./issue.service";
 import sendResponse from "../../utility/sendResponse";
 import type { IssueQuery } from "../../types";
+import type { JwtPayload } from "jsonwebtoken";
 
 const createIssue = async (req: Request, res: Response) => {
   try {
-    // if (!req.user) {
-    //   sendResponse(res, {
-    //     statusCode: 401,
-    //     success: false,
-    //     message: "Unauthorized access",
-    //   });
-    // }
     const id = req.user?.id;
 
     const result = await issueService.createIssueIntoDB(req.body, id);
@@ -121,8 +115,35 @@ const getSingleIssue = async (req: Request, res: Response) => {
   }
 };
 
+const updateUser = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const user = req.user;
+    const payload = req.body;
+    const result = await issueService.updateIssueIntoDB(
+      id as string,
+      user as JwtPayload,
+      payload,
+    );
+    sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: "Issue updated successfully",
+      data: result.rows[0],
+    });
+  } catch (error: any) {
+    sendResponse(res, {
+      statusCode: 500,
+      success: false,
+      message: error.message,
+      error: error,
+    });
+  }
+};
+
 export const issueController = {
   createIssue,
   getAllIssues,
   getSingleIssue,
+  updateUser,
 };

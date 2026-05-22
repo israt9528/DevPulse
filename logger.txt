@@ -129,3 +129,11 @@ Method -> GET - Time -> [5/22/2026, 8:01:45 PM] - URL -> /api/issues?type=bug
 Method -> GET - Time -> [5/22/2026, 8:08:44 PM] - URL -> /api/issues/5
 
 Method -> GET - Time -> [5/22/2026, 8:09:02 PM] - URL -> /api/issues/5
+
+Method -> GET - Time -> [5/22/2026, 9:15:19 PM] - URL -> /api/issues/5
+
+Method -> GET - Time -> [5/22/2026, 9:15:46 PM] - URL -> /api/issues/5
+
+Method -> PATCH - Time -> [5/22/2026, 9:16:28 PM] - URL -> /api/issues/5
+
+Method -> PATCH - Time -> [5/22/2026, 9:19:12 PM] - URL -> /api/issues/5

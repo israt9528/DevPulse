@@ -1,6 +1,8 @@
+import type { JwtPayload } from "jsonwebtoken";
 import { pool } from "../../db";
 import type { Issue, IssueQuery } from "../../types";
 import sendResponse from "../../utility/sendResponse";
+import { decodeBase64 } from "bcryptjs";
 
 const createIssueIntoDB = async (payload: Issue, id: number) => {
   const { title, description, type, status } = payload;
@@ -132,8 +134,68 @@ const getSingleIssueFromDB = async (id: string) => {
   return result;
 };
 
+const updateIssueIntoDB = async (
+  id: string,
+  user: JwtPayload,
+  payload: any,
+) => {
+  const issueResult = await pool.query(
+    `
+        SELECT * FROM issues WHERE id=$1
+        `,
+    [id],
+  );
+
+  if (issueResult.rows.length === 0) {
+    throw new Error("Issue not found");
+  }
+
+  const issue = issueResult.rows[0];
+
+  const userResult = await pool.query(
+    `
+    SELECT * FROM users WHERE email=$1
+    `,
+    [user.email],
+  );
+
+  const dbUser = userResult.rows[0];
+
+  const isMaintainer = dbUser.role === "maintainer";
+  const isContributor = dbUser.role === "contributor";
+
+  if (isContributor) {
+    if (issue.reporter_id !== dbUser.id) {
+      throw new Error("You can only update your own issue");
+    }
+    if (issue.status !== "open") {
+      throw new Error("You can only update open issues");
+    }
+  }
+
+  const { title, description, type } = payload;
+
+  const result = await pool.query(
+    `
+        UPDATE issues
+        SET 
+        title=COALESCE($1,title),
+        description=COALESCE($2,description),
+        type=COALESCE($3,type),
+        updated_at=NOW()
+
+        WHERE id=$4
+        RETURNING *
+        `,
+    [title, description, type, id],
+  );
+
+  return result;
+};
+
 export const issueService = {
   createIssueIntoDB,
   getAllIssuesFromDB,
   getSingleIssueFromDB,
+  updateIssueIntoDB,
 };
