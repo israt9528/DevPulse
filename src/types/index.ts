@@ -15,3 +15,9 @@ export type Issue = {
   type: "bug" | "feature_request";
   status: "open" | "in_progress" | "resolved";
 };
+
+export type IssueQuery = {
+  sort: string;
+  type?: string;
+  status?: string;
+};

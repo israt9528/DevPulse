@@ -1,5 +1,5 @@
 import { pool } from "../../db";
-import type { Issue } from "../../types";
+import type { Issue, IssueQuery } from "../../types";
 import sendResponse from "../../utility/sendResponse";
 
 const createIssueIntoDB = async (payload: Issue, id: number) => {
@@ -17,10 +17,91 @@ const createIssueIntoDB = async (payload: Issue, id: number) => {
   return result;
 };
 
+const getAllIssuesFromDB = async ({ sort, type, status }: IssueQuery) => {
+  let query = `
+    SELECT 
+      issues.id,
+      issues.title,
+      issues.description,
+      issues.type,
+      issues.status,
+
+      users.id AS reporter_id,
+      users.name AS reporter_name,
+      users.role AS reporter_role,
+
+      issues.created_at,
+      issues.updated_at
+
+    FROM issues
+    JOIN users
+    ON issues.reporter_id = users.id
+  `;
+  const values: string[] = [];
+  const conditions: string[] = [];
+
+  if (type) {
+    values.push(type);
+    conditions.push(`type = $${values.length}`);
+  }
+
+  if (status) {
+    values.push(status);
+    conditions.push(`status = $${values.length}`);
+  }
+
+  if (conditions.length > 0) {
+    query += ` WHERE ` + conditions.join(" AND ");
+  }
+
+  // Sorting
+  query += ` ORDER BY created_at ${sort === "newest" ? "DESC" : "ASC"}`;
+
+  const result = await pool.query(query, values);
+
+  const formattedData = result.rows.map((issue) => ({
+    id: issue.id,
+    title: issue.title,
+    description: issue.description,
+    type: issue.type,
+    status: issue.status,
+
+    reporter: {
+      id: issue.reporter_id,
+      name: issue.reporter_name,
+      role: issue.reporter_role,
+    },
+
+    created_at: issue.created_at,
+    updated_at: issue.updated_at,
+  }));
+
+  return formattedData;
+};
+
 const getSingleIssueFromDB = async (id: string) => {
   const issueData = await pool.query(
     `
-       SELECT *FROM issues WHERE id=$1
+       SELECT
+      issues.id,
+      issues.title,
+      issues.description,
+      issues.type,
+      issues.status,
+
+      users.id AS reporter_id,
+      users.name AS reporter_name,
+      users.role AS reporter_role,
+
+      issues.created_at,
+      issues.updated_at
+
+    FROM issues
+
+    JOIN users
+    ON issues.reporter_id = users.id
+
+    WHERE issues.id = $1
         `,
     [id],
   );
@@ -29,28 +110,30 @@ const getSingleIssueFromDB = async (id: string) => {
     throw new Error("Issue not found!");
   }
 
-  const userData = await pool.query(
-    `
-    SELECT *FROM users WHERE id IN (SELECT reporter_id FROM issues)
-    `,
-  );
-  //   console.log(userData);
-  const user = userData.rows[0];
+  const issue = issueData.rows[0];
 
-  const reporter = {
-    id: user.id,
-    name: user.name,
-    role: user.role,
+  const result = {
+    id: issue.id,
+    title: issue.title,
+    description: issue.description,
+    type: issue.type,
+    status: issue.status,
+
+    reporter: {
+      id: issue.reporter_id,
+      name: issue.reporter_name,
+      role: issue.reporter_role,
+    },
+
+    created_at: issue.created_at,
+    updated_at: issue.updated_at,
   };
-
-  delete issueData.rows[0].reporter_id;
-
-  const result = { ...issueData.rows[0], reporter };
 
   return result;
 };
 
 export const issueService = {
   createIssueIntoDB,
+  getAllIssuesFromDB,
   getSingleIssueFromDB,
 };
