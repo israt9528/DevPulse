@@ -137,3 +137,11 @@ Method -> GET - Time -> [5/22/2026, 9:15:46 PM] - URL -> /api/issues/5
 Method -> PATCH - Time -> [5/22/2026, 9:16:28 PM] - URL -> /api/issues/5
 
 Method -> PATCH - Time -> [5/22/2026, 9:19:12 PM] - URL -> /api/issues/5
+
+Method -> DELETE - Time -> [5/22/2026, 9:42:48 PM] - URL -> /api/issues/4
+
+Method -> DELETE - Time -> [5/22/2026, 9:43:48 PM] - URL -> /api/issues/4
+
+Method -> DELETE - Time -> [5/22/2026, 9:53:09 PM] - URL -> /api/issues/4
+
+Method -> DELETE - Time -> [5/22/2026, 9:53:41 PM] - URL -> /api/issues/5
