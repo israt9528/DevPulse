@@ -50,9 +50,12 @@ const validateUser = async (email: string, password: string) => {
   };
 
   const token = jwt.sign(jwtPayload, config.secret, { expiresIn: "1d" });
-  return { token };
+
+  delete user.password;
+  return { token, user };
 };
 
 export const authService = {
   createUser,
+  validateUser,
 };

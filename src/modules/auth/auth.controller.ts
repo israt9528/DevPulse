@@ -22,6 +22,27 @@ const signup = async (req: Request, res: Response) => {
   }
 };
 
+const login = async (req: Request, res: Response) => {
+  try {
+    const { email, password } = req.body;
+    const result = await authService.validateUser(email, password);
+    sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: "Login Successful",
+      data: result,
+    });
+  } catch (error: any) {
+    sendResponse(res, {
+      statusCode: 401,
+      success: false,
+      message: error.message,
+      error: error,
+    });
+  }
+};
+
 export const authController = {
   signup,
+  login,
 };
