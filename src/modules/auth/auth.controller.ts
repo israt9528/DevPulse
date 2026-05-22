@@ -14,7 +14,7 @@ const signup = async (req: Request, res: Response) => {
     });
   } catch (error: any) {
     sendResponse(res, {
-      statusCode: 400,
+      statusCode: 500,
       success: false,
       message: error.message,
       error: error,
@@ -34,7 +34,7 @@ const login = async (req: Request, res: Response) => {
     });
   } catch (error: any) {
     sendResponse(res, {
-      statusCode: 401,
+      statusCode: 500,
       success: false,
       message: error.message,
       error: error,

@@ -17,7 +17,7 @@ const createIssue = async (req: Request, res: Response) => {
     });
   } catch (error: any) {
     sendResponse(res, {
-      statusCode: 400,
+      statusCode: 500,
       success: false,
       message: error.message,
       error: error,
@@ -98,7 +98,6 @@ const getSingleIssue = async (req: Request, res: Response) => {
 
   try {
     const result = await issueService.getSingleIssueFromDB(id as string);
-    // console.log(result);
 
     sendResponse(res, {
       statusCode: 200,
