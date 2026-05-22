@@ -11,6 +11,7 @@ const config = {
   port: env.PORT as string,
   database_url: env.DATABASE_URL as string,
   node_env: env.NODE_ENV as string,
+  secret: env.SECRET as string,
 };
 
 export default config;
