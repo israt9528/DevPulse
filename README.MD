@@ -1,6 +1,6 @@
 # DevPulse
 
-**Live URL:** [Insert Live Deployment URL Here]
+**Live URL:** [Live Site](https://assignment-2-theta-livid.vercel.app)
 
 A collaborative backend platform for software teams to report bugs, suggest features, and coordinate resolutions. Built with Node.js and PostgreSQL using raw SQL for maximum performance and query control.
 
@@ -16,6 +16,17 @@ A collaborative backend platform for software teams to report bugs, suggest feat
 
 ---
 
+## Tech Stack
+
+- Node.js
+- TypeScript
+- Express.js
+- PostgreSQL
+- bcrypt
+- jsonwebtoken
+
+---
+
 ## ⚙️ Setup & Installation
 
 **1. Prerequisites**
@@ -26,7 +37,7 @@ A collaborative backend platform for software teams to report bugs, suggest feat
 **2. Clone the Repository**
 
 ```bash
-git clone [https://github.com/israt9528/DevPulse.git](https://github.com/israt9528/DevPulse.git)
+git clone https://github.com/israt9528/DevPulse.git
 cd DevPulse
 ```
 
