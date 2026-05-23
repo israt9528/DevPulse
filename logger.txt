@@ -145,3 +145,11 @@ Method -> DELETE - Time -> [5/22/2026, 9:43:48 PM] - URL -> /api/issues/4
 Method -> DELETE - Time -> [5/22/2026, 9:53:09 PM] - URL -> /api/issues/4
 
 Method -> DELETE - Time -> [5/22/2026, 9:53:41 PM] - URL -> /api/issues/5
+
+Method -> GET - Time -> [5/23/2026, 4:39:18 PM] - URL -> /
+
+Method -> GET - Time -> [5/23/2026, 4:39:20 PM] - URL -> /favicon.ico
+
+Method -> GET - Time -> [5/23/2026, 4:39:39 PM] - URL -> /api/issues
+
+Method -> GET - Time -> [5/23/2026, 5:12:48 PM] - URL -> /

@@ -4,6 +4,7 @@ import { initDB } from "./db";
 
 const main = () => {
   initDB();
+
   app.listen(config.port, () => {
     console.log(`DevPulse server listening on port ${config.port}`);
   });

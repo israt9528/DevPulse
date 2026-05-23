@@ -26,8 +26,8 @@ A collaborative backend platform for software teams to report bugs, suggest feat
 **2. Clone the Repository**
 
 ```bash
-git clone [https://github.com/yourusername/devpulse.git](https://github.com/yourusername/devpulse.git)
-cd devpulse
+git clone [https://github.com/israt9528/DevPulse.git](https://github.com/israt9528/DevPulse.git)
+cd DevPulse
 ```
 
 **3. Install Dependencies**
@@ -40,9 +40,10 @@ npm install
 Create a `.env` file in the root directory and add the following configurations:
 
 ```env
-PORT=3000
-DATABASE_URL=postgres://username:password@localhost:5432/devpulse_db
-JWT_SECRET=your_super_secret_jwt_key
+PORT=5000
+DATABASE_URL=postgresql://neondb_owner:npg_MbyDT5nCoL7j@ep-shiny-cell-aoalraox-pooler.c-2.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require
+NODE_ENV=development
+SECRET=EURHEIU4Y34RERKJGKJERBTUIHRDF8348
 ```
 
 **5. Database Setup**
